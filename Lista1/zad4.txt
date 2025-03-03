@@ -1,0 +1,35 @@
+fun main() {
+    val liczba = 28
+    val suma = Suma_alikwotowa(liczba)
+    println()
+    println("---------------")
+    println(suma)
+    
+    
+	if(liczba==suma)
+    {
+    	println("Doskonała!")
+    }
+    else if(liczba<suma)
+    {
+    	println("Deficytowa!")
+    }
+    else
+    {
+        println("Obfita!")
+	}
+}
+
+fun Suma_alikwotowa(liczba: Int): Int
+{
+    var suma =0
+    for(i in 1..liczba-1)
+    {
+        if(liczba % i ==0)
+        {
+            print(suma.toString()+"+")
+            suma += i
+        }
+    }
+    return suma
+}

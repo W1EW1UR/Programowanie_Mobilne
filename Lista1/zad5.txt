@@ -1,0 +1,36 @@
+fun main() {
+    val liczba = 153
+   
+    if(checkArmstrong(liczba.toString()) == true)
+    {
+        println("Liczba Armstronga!")
+    }
+    else
+    {
+        println("Nie jest to liczba Armstronga!")
+        
+    }
+    
+    
+}
+
+fun checkArmstrong(liczba: String): Boolean
+{
+    val potęga = (liczba.length).toDouble()
+    var suma = 0.0
+    for(i in liczba)
+    {
+        var cyfra = i.toDouble()
+        suma += Math.pow(cyfra,potęga)
+        
+    }
+    if(suma == liczba.toDouble())
+    {
+        return true
+    }
+    else
+    {
+        return false
+    }
+    
+}
