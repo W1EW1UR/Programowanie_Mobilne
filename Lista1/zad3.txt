@@ -1,0 +1,34 @@
+fun main() {
+    val height: Int = 6
+    Pascal(height)
+}
+
+
+fun Pascal(height: Int) {
+    val rzad_obecny: MutableList<Int> = mutableListOf()
+    val rzad_poprzedni: MutableList<Int> = mutableListOf()
+
+    
+    for (i in 1..height){
+        
+        print(" ".repeat(height-i))
+        
+        for (j in 1..i){
+            
+            if (j == 1 || j==i){
+                rzad_obecny.add(1)
+            }else{
+                val liczba = rzad_poprzedni[j-2]+rzad_poprzedni[j-1]
+                rzad_obecny.add(liczba)
+            } //koniec if else z dodawaniem do listy
+            
+        } //koniec drugiego for
+        println(rzad_obecny.joinToString(" "))
+        
+        rzad_poprzedni.clear()           // Usuwa stare dane z rzad_poprzedni
+        rzad_poprzedni.addAll(rzad_obecny) // Kopiuje zawartość rzad_obecny do rzad_poprzedni
+        rzad_obecny.clear()              // Czyści rzad_obecny
+
+    } //koniec pierwszego for 
+    
+} //koniec funkcji
