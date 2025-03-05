@@ -1,0 +1,25 @@
+fun main() {
+    val wyraz = "ababa"
+    println(Palindrom(wyraz))
+    
+}
+
+
+fun Palindrom(wyraz: String): Any {
+    
+    val len = (wyraz.length)-1
+    for (i in 0..len){ 
+        if(wyraz[i]!=wyraz[len-i])
+        {
+			print(i)
+            print(i)
+          	println(wyraz[i]+"    "+wyraz[len-i])
+    		return "Nie Palindrom"   
+          
+       
+        }
+    }
+    
+    
+    return "Palindrom"
+}
