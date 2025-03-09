@@ -1,0 +1,23 @@
+fun main() {
+    val kotlin = listOf(1,2,3,4)
+    
+    
+    println(isSorted(	kotlin, {i: Int, j: Int -> i < j})		)
+    
+}
+
+
+fun <A> isSorted(lst: List<A>, order: (A, A) -> Boolean): Boolean
+{
+    val l = lst.size
+    for(i in 0..l-2)
+    {
+        if(order(lst[i],lst[i+1])!= true )
+        {
+            return false
+        }
+    }
+    return true
+    
+    
+}

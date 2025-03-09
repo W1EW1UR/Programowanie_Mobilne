@@ -1,0 +1,34 @@
+fun main() {
+    val kotlin = listOf(1, 2, 3, 4)
+    println(	tailToHead(	kotlin )	)
+    
+    // NIE DZIAŁA !!!!!!!
+    
+	//println(tailToHead(emptyList<Int>()))  // Testowanie z pustą listą
+
+
+}
+
+
+fun <A> tailToHead(lst: List<A>): List<A> 
+    {
+        if (lst.isEmpty()) {
+        	throw IllegalStateException("Empty list")  // Wyrzucamy wyjątek, jeśli lista jest pusta
+    	}
+		else{
+            
+        val M_Lista = lst.toMutableList()
+        
+        // dodaje ostatni element na pierwsze miejsce
+        M_Lista.add(lst.lastIndex, lst[0])
+         // usuwam pierwzsy element
+        M_Lista.removeAt(0)
+        
+        // dodaje pierwszy element na ostatnie miejsce
+        M_Lista.add(0, lst.last())
+        // usuwam ostatni element
+        M_Lista.removeAt(M_Lista.lastIndex)
+
+        return M_Lista.toList()
+		}
+    }

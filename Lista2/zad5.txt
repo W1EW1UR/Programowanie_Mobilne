@@ -1,0 +1,20 @@
+fun main() {
+    val kotlin = listOf(1, 2, 3, 4)
+    val item = 5
+    println(setHead(kotlin,item))
+}
+
+
+fun <A> setHead(lst: List<A>, item: A): List<A>
+    {
+
+        val M_Lista = lst.toMutableList()
+        
+        // usuwam pierwzsy element
+        M_Lista.removeAt(0)
+        // dodaje item na pierwsze miejsce
+        M_Lista.add(0, item)
+
+        return M_Lista.toList()
+		
+    }

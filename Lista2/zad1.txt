@@ -1,0 +1,7 @@
+fun main() {
+    val kotlin = "🙂"
+    val ilość = 3
+    println( r(kotlin,ilość) )
+}
+
+val r = {s:String, i: Int -> s.repeat(i)}

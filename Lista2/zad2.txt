@@ -1,0 +1,29 @@
+val <T> List<T>.head: T
+        get() = this[0]
+
+
+val <T> List<T>.tail: List<T>
+    get() 
+	{
+    	val M_Lista = this.toMutableList()
+        M_Lista.removeAt(this.lastIndex)
+        return M_Lista.toList()
+	}
+
+fun main() {
+    val intList = listOf(1,2,3)
+    val stringList = listOf("a","b","c")
+    
+    
+    println(intList.head)
+    println(stringList.head)
+    
+    println()
+    
+    println(intList.tail)
+    println(stringList.tail)
+}
+
+
+
+    

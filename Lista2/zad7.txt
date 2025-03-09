@@ -1,0 +1,53 @@
+fun main() {
+    
+    val Lista = listOf(1, 2, 3, 5, 7, 12, 30)
+    val Preambuła = 3
+    
+    println(	check(Preambuła, Lista)	)
+}
+
+
+
+
+// Funkcja check działą na zasadzie ustalania przedziałów po których iterują jednocześnie i oraz j 
+// starają się sumować nawzajem w celu znalezienia poprawnej sumy 
+// 
+
+fun check(N: Int, List: List<Int>): Int
+    {
+        // n - oznacza skąd zaczyna sie przedzial
+        var n = 0
+
+        // Wykonuje sie dopuki nie spotka końca listy (+1 ponieważ musi obsłużyć jeszcze 30 )
+		while(n+N != List.lastIndex+1)
+        {
+            // zmienna pomocnicza pomaga w ustaleniu czy znaleziono już poprawną kombinacje cyfr
+            var pomoc = false
+            
+            for(i in n..n+N-1)// iteracja "i" od n do (n-N+1) czyli do elementu przed sprawdzanym elementem 
+            {
+               
+                for(j in n..n+N-1)
+                {
+                    // TO JEST DO DEBUGOWANIA
+                    //println("${List[i]} + ${List[j]} = ${List[n+N]} ")
+                    
+                    if(i==j){continue}
+                    else if(List[i] + List[j] == List[n+N] )
+                    {
+                        // TO JEST DO DEBUGOWANIA
+                        //print("  POPRAWNIE  \n")
+                        
+                        
+                        pomoc = true // Jeśli udało sie znaleść sume to zmienia "pomoc" na true
+                        break
+                    }
+                }
+            }   
+            if(pomoc == false) // Jeśli nie udało sie znaleść kombinacji zwraca sprawdzany element
+            	{return List[n+N]} 
+            n += 1
+        }
+        
+        return -1 // Jeśli udało sie znaleść dla każdej liczby sprawdzanej
+    }
