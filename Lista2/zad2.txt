@@ -6,12 +6,12 @@ val <T> List<T>.tail: List<T>
     get() 
 	{
     	val M_Lista = this.toMutableList()
-        M_Lista.removeAt(this.lastIndex)
+        M_Lista.removeAt(0)
         return M_Lista.toList()
 	}
 
 fun main() {
-    val intList = listOf(1,2,3)
+    val intList = listOf(1,2,3,4)
     val stringList = listOf("a","b","c")
     
     
@@ -23,7 +23,3 @@ fun main() {
     println(intList.tail)
     println(stringList.tail)
 }
-
-
-
-    
