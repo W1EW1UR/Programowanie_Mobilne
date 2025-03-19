@@ -1,0 +1,24 @@
+fun main() {
+
+    println(addToBoolean())
+}
+
+
+
+
+fun addToBoolean():Map<Int,String>
+{
+    var mapa = mutableMapOf<Int,String>()
+    for(i in 1..20)
+    {
+        if(i%2==0)
+        {
+            mapa.put(i,"parzysty")
+        }
+        else
+        {
+			mapa.put(i,"NIE-parzysty")
+        } 
+    } 
+    return mapa.toMap();
+}
