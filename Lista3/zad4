@@ -1,0 +1,20 @@
+fun main() {
+    val lista = listOf(listOf("a", "b", "c"), listOf("c", "d", "f"), listOf("d", "f", "g","a"))
+    val lista_uporządkowana = lista.flatten()
+    
+    println(lista)
+    println(countElements(lista_uporządkowana))
+}
+
+
+fun countElements(lst: List<String>):Map<String,Int>
+    {
+		val litery = lst.toSet()
+        var Mapa:MutableMap<String,Int> = mutableMapOf()
+        for(i in litery)
+        {
+			Mapa.put(i,lst.count{i==it})
+        }
+        
+        return Mapa.toMap()
+    }
