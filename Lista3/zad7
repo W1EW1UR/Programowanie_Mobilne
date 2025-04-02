@@ -1,0 +1,22 @@
+fun main() {
+    val lista = listOf(
+        "cherry", 
+        "blueberry", 
+        "citrus", 
+        "apple", 
+        "apricot", 
+        "banana", 
+        "coconut")
+
+    
+    println(srt(lista))
+}
+
+
+fun srt(lst: List<String>):Any
+{
+    var lista = lst.filter{it.length % 2 == 0 && it is String}
+    lista = lista.sorted()
+    
+    return lista.groupBy{it.first()}
+}
