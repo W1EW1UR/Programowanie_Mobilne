@@ -1,1 +1,10 @@
+fun main() {
+    val result = perm(listOf(1, 2, 3))
+    println(result)
+}
 
+
+fun perm(lst: List<Int>): List<List<Int>> 
+{
+    return lst.fold(listOf(listOf())) { acc, elem -> acc.flatMap { per -> (0..per.size).map { i ->per.toMutableList().apply { add(i, elem) }}}}
+}
