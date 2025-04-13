@@ -1,0 +1,97 @@
+import kotlin.random.*
+import java.time.LocalDate	// Inaczej nie wie czym jest LocalDate
+
+//==============================================================
+//=================		KLASY I OBJEKTY		====================
+
+enum class CostType(val costType: String) {		// Typ kosztu
+    REFUELING("Tankowanie"),
+    SERVICE("Serwis"),
+    PARKING("Parking"),
+    INSURANCE("Ubezpieczenie"),
+    TICKET("Mandat")
+}
+
+//===============
+//===== Cost ====
+
+data class Cost (		// Dane kosztu
+    val type: CostType,
+    val date: LocalDate,
+    val amount: Int
+)
+
+//===============
+//===== Car =====
+
+data class Car (		//Dane Samochodu
+    val name: String,
+    val brand: String,
+    val model: String,
+    val yearOfProduction: Int,
+    val costs: List<Cost>
+)
+
+//================
+//= DataProvider =
+
+object DataProvider {
+    
+    private fun  generalCosts(size: Int) = List(size) {
+    Cost(
+        CostType.values()[Random.nextInt(CostType.values().size)],
+        LocalDate.of(
+            2025, 
+            Random.nextInt(1,13), 
+            Random.nextInt(1,28)),
+        Random.nextInt(5000)
+        )
+    }
+
+    val cars = listOf(
+        Car("Domowy", "Skoda", "Fabia", 2002, generalCosts(100)),
+        Car("Służbowy", "BMW", "Coupe", 2015, generalCosts(50)),
+        Car("Kolekcjonerski", "Fiat", "125p", 1985, generalCosts(10))
+    )
+
+}
+
+//================================================================================================
+//=======================	MAIN	============================
+
+fun main() {
+
+    
+	printCarCosts(getCarCosts("Domowy"))
+
+}
+
+//==============================================================
+//=======================	FUNKCJE		========================
+
+fun getCarCosts(Car_Name: String):List< Pair<CostType,Int> >
+{
+	var Samochod = DataProvider.cars.filter{it.name==Car_Name}[0]	// Wyciągam liste cars i szukam wybranego samochodu o name==Car_Name.
+    																//Dostaje spowrotem liste od .filtr{} więc musze wybrac pierwszy element [0] ALTERNATYWA .firstOrNull{}
+	
+	val Koszta = Samochod
+    	.costs	// wchodze w koszta
+   		.groupBy( {it.type} , {it.amount} )	// Grupuje typy razem z kwotami
+        .mapValues{		it.value.reduce{acc,curr -> acc + curr}	}	// Kwoty sumuje w jedno dla każdego typu
+
+        
+    return Koszta.toList()
+    
+}
+
+//===============		Car(name=Domowy, brand=Skoda, model=Fabia, yearOfProduction=2002, costs=[Cost(type=REFUELING, date=2025-06-08, amount=3794),Cost(type=TICKET, date=2025-06-08, amount=6586), ... ]
+//===============
+
+fun printCarCosts(lst: List< Pair<CostType,Int> >):Unit
+{
+    for(i in lst)
+		println("${i.first}: ${i.second}zł")	
+    
+}
+
+
