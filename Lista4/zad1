@@ -1,0 +1,68 @@
+import kotlin.random.*
+import java.time.LocalDate	// Inaczej nie wie czym jest LocalDate
+
+//==============================================================
+//=================		KLASY I OBJEKTY		====================
+
+enum class CostType(val costType: String) {		// Typ kosztu
+    REFUELING("Tankowanie"),
+    SERVICE("Serwis"),
+    PARKING("Parking"),
+    INSURANCE("Ubezpieczenie"),
+    TICKET("Mandat")
+}
+
+//===============
+
+data class Cost (		// Dane kosztu
+    val type: CostType,
+    val date: LocalDate,
+    val amount: Int
+)
+//===============
+
+object DataProvider {   			// Lista z kosztami 
+    val generalCosts = List(5) {
+        Cost(
+            CostType
+                .values()[Random.nextInt(CostType.values().size)],
+            LocalDate.of(
+                2025, 
+                Random.nextInt(1,13), 
+                Random.nextInt(1,28)),
+            Random.nextInt(5000)
+        )
+    }
+}
+
+//==============================================================
+//=======================	MAIN	============================
+
+fun main() {
+    for(i in DataProvider.generalCosts) // pokazanie listy kosztów
+    	println(i)    
+    
+    println("\n ================================== \n")
+    val mapa = groupedCostMap(DataProvider.generalCosts) // uporzadkowana lista
+    
+	for ((i, j) in mapa) 	// Ładne wyświetlanie wyniku
+    	println("$i, $j")
+
+}
+
+//==============================================================
+//=======================	FUNKCJE		========================
+
+fun groupedCostMap(lst: List<Cost>):Map<String,List<Cost>>
+{
+	val	mapa = lst
+		.sortedBy{it.date}
+        .groupBy{(it.date).month.toString()} // Konwerutje na .toString() bo inaczej zwraca Month! z którym ciężko sie pracuje
+        
+        
+    return mapa
+}
+
+
+
+
