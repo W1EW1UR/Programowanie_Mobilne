@@ -1,0 +1,104 @@
+import kotlin.random.*
+import java.time.LocalDate	// Inaczej nie wie czym jest LocalDate
+
+//==============================================================
+//=================		KLASY I OBJEKTY		====================
+
+enum class CostType(val costType: String) {		// Typ kosztu
+    REFUELING("Tankowanie"),
+    SERVICE("Serwis"),
+    PARKING("Parking"),
+    INSURANCE("Ubezpieczenie"),
+    TICKET("Mandat")
+}
+
+//===============
+
+data class Cost (		// Dane kosztu
+    val type: CostType,
+    val date: LocalDate,
+    val amount: Int
+)
+
+//===============
+
+data class Car (		//Dane Samochodu
+    val name: String,
+    val brand: String,
+    val model: String,
+    val yearOfProduction: Int,
+    val costs: List<Cost>
+)
+
+//===============
+
+object DataProvider {
+    
+    private fun  generalCosts(size: Int) = List(size) {
+    Cost(
+        CostType.values()[Random.nextInt(CostType.values().size)],
+        LocalDate.of(
+            2025, 
+            Random.nextInt(1,13), 
+            Random.nextInt(1,28)),
+        Random.nextInt(5000)
+        )
+    }
+
+    val cars = listOf(
+        Car("Domowy", "Skoda", "Fabia", 2002, generalCosts(100)),
+        Car("Służbowy", "BMW", "Coupe", 2015, generalCosts(50)),
+        Car("Kolekcjonerski", "Fiat", "125p", 1985, generalCosts(10))
+    )
+
+}
+
+//==============================================================
+//=======================	MAIN	============================
+
+fun main() {
+	val Samochody = DataProvider.cars	// Wyciągam liste cars
+    
+    Cars_data(Samochody)		// Drukuje liste kosztów zgodnie z wymaganiami
+    
+}
+
+//==============================================================
+//=======================	FUNKCJE		========================
+
+fun Cars_data(lst: List<Car>):Unit
+{
+  	for(i in lst)	// Wybieram jeden samochod naraz
+    {	// Wygląd
+    	println("==============================	\n	name=${i.name}\n	brand=${i.brand}\n	model=${i.model}\n	yearOfProduction=${i.yearOfProduction} \n ==============================")
+        
+        
+        var mapa_kosztow = groupedCostMap(i.costs)  // Sortuje i zwraca koszty samochodu 
+        
+        
+		for ((i, j_lista) in mapa_kosztow)			// Ładne wyświetlanie wyniku
+    	{
+    		println("$i")
+            for(j in j_lista)
+            	println("${j.date.dayOfMonth} ${j.type} ${j.amount}zł")
+            println()
+        }   
+    }
+}
+
+
+fun groupedCostMap(lst: List<Cost>):Map<String,List<Cost>>	// Funkcja sortująca liste "cost"
+{
+	val	mapa = lst
+		.sortedBy{it.date}		// Sortuje 
+        .groupBy{(it.date).month.toString()} // Konwerutje na .toString() bo inaczej zwraca Month! z którym ciężko sie pracuje
+        
+        
+    return mapa
+}
+
+
+
+
+
+
