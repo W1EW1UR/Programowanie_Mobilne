@@ -6,16 +6,11 @@ fun main() {
 
 fun evenPositiveSquare(lst:List<Int>):List<Int>
     {
-        val Lista: MutableList<Int> = mutableListOf()
 
-        for(i in 0 .. lst.size -1)
-        {
-            if(i%2==1 && lst[i]>=0)
-            {
-                
-                Lista.add(	(Math.pow(	lst[i].toDouble() , 2.toDouble()	)).toInt()	)
-                
-            }
-        }
-    	return Lista
+        val Wynik = lst
+        	.filterIndexed{index,s -> (index%2 == 1) && (s > 0)}
+        	.map{it * it}
+        
+        
+    	return Wynik
     }
