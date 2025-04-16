@@ -5,10 +5,24 @@ fun main() {
     
 }
 
-fun findDuplicates(lst:List<Int>):List<Int>
+fun findDuplicates(lst:List<Int>):Any
 {
-    val lst = lst.sorted()
-    val list = lst.toSet()
+    val mapa = lst.groupingBy { it }.eachCount()
+    var lista: MutableList<Int> = mutableListOf()
+    
 	
-    return list.toList()
+    for((i,j) in mapa)
+    {
+        if(j > 2 )
+        {
+            lista.add(i)
+            	
+            	
+        }
+        
+        
+    }
+    lista.sorted()
+    
+    return lista.sorted()
 }
