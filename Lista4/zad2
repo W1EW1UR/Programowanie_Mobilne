@@ -73,8 +73,8 @@ fun Cars_data(lst: List<Car>):Unit
     	println("==============================	\n	name=${i.name}\n	brand=${i.brand}\n	model=${i.model}\n	yearOfProduction=${i.yearOfProduction} \n ==============================")
         
         
-        var mapa_kosztow = groupedCostMap(i.costs)  // Sortuje i zwraca koszty samochodu 
-        
+        var mapa_kosztow = groupedCostMap(i.costs)  // Mapuje miesiąc i wszystkie koszty samochodu w danym miesiacu
+        println(mapa_kosztow)
         
 		for ((i, j_lista) in mapa_kosztow)			// Ładne wyświetlanie wyniku
     	{
@@ -96,9 +96,3 @@ fun groupedCostMap(lst: List<Cost>):Map<String,List<Cost>>	// Funkcja sortująca
         
     return mapa
 }
-
-
-
-
-
-
