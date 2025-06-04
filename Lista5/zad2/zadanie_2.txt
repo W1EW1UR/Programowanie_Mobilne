@@ -1,0 +1,209 @@
+package com.example.lista5_2
+
+//nazwij plik lista 5_2
+
+
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.example.lista5_2.ui.theme.Lista5_2Theme
+
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        enableEdgeToEdge()
+
+        setContent {
+            MaterialTheme {
+                CalculatorScreen()
+            }
+        }
+
+    }
+
+@Composable
+fun Greeting(name: String, modifier: Modifier = Modifier) {
+    Text(
+        text = "Hello $name!",
+        modifier = modifier
+    )
+}
+
+
+@Composable
+fun CalculatorFields(
+    firstNumber: String,
+    secondNumber: String,
+    onFirstNumberChange: (String) -> Unit,
+    onSecondNumberChange: (String) -> Unit
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+    ) {
+        TextField(
+            value = firstNumber,
+            onValueChange = onFirstNumberChange,
+            placeholder = { Text("Enter first number") },
+            colors = TextFieldDefaults.colors(
+                focusedContainerColor = Color(0xFFEDE7F6),
+                unfocusedContainerColor = Color(0xFFEDE7F6)
+            ),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp)
+        )
+
+        TextField(
+            value = secondNumber,
+            onValueChange = onSecondNumberChange,
+            placeholder = { Text("Enter second number") },
+            colors = TextFieldDefaults.colors(
+                focusedContainerColor = Color(0xFFEDE7F6),
+                unfocusedContainerColor = Color(0xFFEDE7F6)
+            ),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp)
+        )
+    }
+}
+
+
+
+@Composable
+fun CalculatorButton(
+    firstNumber: String,
+    secondNumber: String
+) {
+    var message by remember { mutableStateOf("") }
+
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(56.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Button(
+                modifier = Modifier.weight(1f),
+                onClick = {
+                    val num1 = firstNumber.toIntOrNull()
+                    val num2 = secondNumber.toIntOrNull()
+
+                    message = when {
+                        num1 == null || num2 == null -> "Podaj tylko liczby całkowite"
+                        else -> (num1 + num2).toString()
+                    }
+                }
+            ) {
+                Text("+")
+            }
+
+            Button(
+                modifier = Modifier.weight(1f),
+                onClick = {
+                    val num1 = firstNumber.toIntOrNull()
+                    val num2 = secondNumber.toIntOrNull()
+
+                    message = when {
+                        num1 == null || num2 == null -> "Podaj tylko liczby całkowite"
+                        else -> (num1 - num2).toString()
+                    }
+                }
+            ) {
+                Text("-")
+            }
+
+            Button(
+                modifier = Modifier.weight(1f),
+                onClick = {
+                    val num1 = firstNumber.toIntOrNull()
+                    val num2 = secondNumber.toIntOrNull()
+
+                    message = when {
+                        num1 == null || num2 == null -> "Podaj tylko liczby całkowite"
+                        else -> (num1 * num2).toString()
+                    }
+                }
+            ) {
+                Text("*")
+            }
+
+            Button(
+                modifier = Modifier.weight(1f),
+                onClick = {
+                    val num1 = firstNumber.toIntOrNull()
+                    val num2 = secondNumber.toIntOrNull()
+
+                    message = when {
+                        num1 == null || num2 == null -> "Podaj tylko liczby całkowite"
+                        num2 == 0 -> "Dzielenie przez 0"
+                        else -> (num1 / num2).toString()
+                    }
+                }
+            ) {
+                Text("/")
+            }
+        }
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        if (message.isNotEmpty()) {
+            Text(
+                text = "Wynik: $message",
+                style = MaterialTheme.typography.bodyLarge
+            )
+        }
+    }
+}
+
+
+@Composable
+fun CalculatorScreen() {
+    var firstNumber by remember { mutableStateOf("") }
+    var secondNumber by remember { mutableStateOf("") }
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        CalculatorFields(
+            firstNumber = firstNumber,
+            secondNumber = secondNumber,
+            onFirstNumberChange = { firstNumber = it },
+            onSecondNumberChange = { secondNumber = it }
+        )
+        CalculatorButton(
+            firstNumber = firstNumber,
+            secondNumber = secondNumber
+        )
+
+
+
+
+    }
+}
+}
